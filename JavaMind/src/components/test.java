@@ -17,7 +17,9 @@ public class test  {
 		application.addClassVariable("String", "appGroup");
 		application.addClassVariable("String", "appType");
 		
-		application.setClassContent("");
+		application.addClassMethod("constructor", "public", "", "Application", "String appName", "System.out.println(\"构造方法内容\")");
+		
+		
 		
 		System.out.println(application.getCode());
 		

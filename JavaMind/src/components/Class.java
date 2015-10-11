@@ -6,18 +6,17 @@ package components;
  */
 public class Class {
 
-	public static String allClassString = "";
-
 	private static String classPackage = "";
 	private static String classImport = "";
-
 	private static String className = "";
 	private static String classExtends = "";
 	private static String classImplements = "";
-
+	
 	private static StringBuffer allVariables = new StringBuffer();
-	private static String classContent = "";
+	private static StringBuffer allMethod = new StringBuffer();
 
+	public static String allClassString = "";
+	
 	public Class() {
 		this.setClassPackage(getPakageName());
 
@@ -42,6 +41,12 @@ public class Class {
 		Variable variable = new Variable(variableType, variableName, variableValue);
 		allVariables.append(variable.getVariable() + "\r\n");
 	}
+	
+	public void addClassMethod(String methodType, String methodModifier, String methodMReturnType, String methodName, String methodParameters, String methodContent) {
+		Method method = new Method(methodType, methodModifier, methodMReturnType, methodName, methodParameters, methodContent);
+		allMethod.append(method.getMethod() + "\r\n");
+		
+	}
 
 	public void updateClass() {
 
@@ -53,6 +58,7 @@ public class Class {
 		String cImplements = " implements " + classImplements;
 
 		String cVariables = allVariables.toString();
+		String cMethods = allMethod.toString();
 
 		if (classImport != "") {
 		} else {
@@ -74,7 +80,8 @@ public class Class {
 			cVariables = "";
 		}
 
-		String cContent = " {\r\n" + "\r\n" + cVariables + classContent + "\r\n}";
+		String cContent = " {\r\n" + "\r\n" + cVariables + cMethods + "\r\n}";
+		
 		String cHeaderPart = cName + cExtens + cImplements + cContent;
 		allClassString = cPackagePart + cImportsPart + cHeaderPart;
 	}
@@ -104,10 +111,6 @@ public class Class {
 		Class.classImplements = classImplements;
 	}
 
-	public void setClassContent(String classContent) {
-		Class.classContent = classContent;
-	}
-
 	public String getClassPackage() {
 		return classPackage;
 	}
@@ -126,10 +129,6 @@ public class Class {
 
 	public String getClassImplements() {
 		return classImplements;
-	}
-
-	public String getClassContent() {
-		return classContent;
 	}
 
 	public String getAllClass() {
