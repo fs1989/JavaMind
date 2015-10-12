@@ -1,6 +1,8 @@
 package components;
 
-import components.Method.MethodParameters;
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author Dan.D.Zhang
@@ -13,12 +15,14 @@ public class Class {
 	private static String className = "";
 	private static String classExtends = "";
 	private static String classImplements = "";
-	
+
 	private static StringBuffer allVariables = new StringBuffer();
-	private static StringBuffer allMethod = new StringBuffer();
+	private static StringBuffer allMethods = new StringBuffer();
+
+	ArrayList Methods = new ArrayList();
 
 	public static String allClassString = "";
-	
+
 	public Class() {
 		this.setClassPackage(getPakageName());
 
@@ -43,11 +47,13 @@ public class Class {
 		Variable variable = new Variable(variableType, variableName, variableValue);
 		allVariables.append(variable.getVariable() + "\r\n");
 	}
-	
-	public void addClassMethod(String methodType, String methodModifier, String methodReturnType, String methodName, String methodVariable, String methodContent) {
-		Method method = new Method(methodType, methodModifier, methodReturnType, methodName, methodVariable, methodContent);
-		allMethod.append(method.getMethod() + "\r\n");
-		
+
+	public String getAllMethods() {
+		Iterator t = Methods.iterator();
+		while (t.hasNext()) {
+			allMethods.append(t.next() + "\r\n");
+		}
+		return Methods.toString();
 	}
 
 	public void updateClass() {
@@ -60,7 +66,7 @@ public class Class {
 		String cImplements = " implements " + classImplements;
 
 		String cVariables = allVariables.toString();
-		String cMethods = allMethod.toString();
+		String cMethods = allMethods.toString();
 
 		if (classImport != "") {
 		} else {
@@ -83,9 +89,13 @@ public class Class {
 		}
 
 		String cContent = " {\r\n" + "\r\n" + cVariables + cMethods + "\r\n}";
-		
 		String cHeaderPart = cName + cExtens + cImplements + cContent;
 		allClassString = cPackagePart + cImportsPart + cHeaderPart;
+	}
+
+	public void createMethod(String className, String methodModifier, String methodReturnType, String methodName) {
+		Method method = new Method(int i, getClassName(), methodModifier, methodReturnType, methodName);
+		Methods.add(method.getMethod());
 	}
 
 	// setter and getter
@@ -121,7 +131,7 @@ public class Class {
 		return classImport;
 	}
 
-	public String getClassName() {
+	public static String getClassName() {
 		return className;
 	}
 

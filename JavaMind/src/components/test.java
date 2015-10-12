@@ -19,29 +19,23 @@ public class test  {
 		application.addClassVariable("String", "appGroup");
 		application.addClassVariable("String", "appType");
 
-		// 为方法添加一个参数
-		
-		
-		String parameterType = "String";
-		String parameterName = "appName";
-		MethodParameters parameter = new MethodParameters(parameterType, parameterName);
-		StringBuffer parameters = new StringBuffer();
-		parameters.append(parameter.getVariable());
-		String methodParameter = parameters.toString();
 		
 		// 添加一个方法
-		String methodType = "constructor";
-		String methodModifier = "public"; 
-		String methodMReturnType = ""; 
+		String methodModifier = "private"; 
+		String methodReturnType = "void"; 
 		String methodName = "Application"; 
-		String methodVariable = methodParameter; 
-		String methodContent = "";
 		
-		application.addClassMethod(methodType, methodModifier, methodMReturnType, methodName, methodVariable, methodContent);
+		application.createMethod(application.getClassName(), methodModifier, methodReturnType, methodName);
+		Method method = new Method(application.getClassName(), methodModifier, methodReturnType, methodName);
+		method.setMethodClassName(application.getClassName());
+		
+		method.addMethodParameter("String", "appName");
+		method.addMethodParameter("String", "appGroup");
+		
 		
 		System.out.println(application.getCode());
 		
 		
 	}
 
-}
+} 

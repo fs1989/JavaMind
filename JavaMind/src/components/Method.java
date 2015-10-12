@@ -4,12 +4,14 @@ public class Method {
 
 	private String method;
 
+	private String methodClassName;
+
 	private String methodType;
 	private String methodModifier;
-	private String methodMReturnType;
+	private String methodReturnType;
 	private String methodName;
-	private MethodParameters methodParameters;
-	private String methodContent;
+	private StringBuffer methodParameters = new StringBuffer("");
+	private String methodContent = "";
 
 	static class MethodParameters extends Variable {
 
@@ -18,7 +20,7 @@ public class Method {
 
 			if (variable != "") {
 				variable = variable.substring(0, variable.length() - 1);
-				variable = "(" + variable + ")";
+				// variable = "(" + variable + ")";
 			} else {
 				variable = " (" + variable + ")";
 			}
@@ -31,53 +33,47 @@ public class Method {
 		return super.toString();
 	}
 
-	public Method(String methodType, String methodModifier, String methodMReturnType, String methodName,
-			String methodVariable, String methodContent) {
+	public Method(String methodClassName, String methodModifier, String methodReturnType, String methodName) {
 		super();
-		this.methodType = methodType;
+		this.methodClassName = methodClassName;
 		this.methodModifier = methodModifier;
-		this.methodMReturnType = methodMReturnType;
+		this.methodReturnType = methodReturnType;
 		this.methodName = methodName;
-		this.methodContent = methodContent;
-
-		switch (methodType) {
-		case "constructor":
-			methodModifier = "\r\npublic ";
-			methodMReturnType = "";
-			methodContent = "{\r\nsuper();\r\n" + methodContent + "\r\n}";
-			break;
-		case "main":
-
-			break;
-		default:
-			methodModifier = methodModifier + " ";
-			methodMReturnType = methodMReturnType + " ";
-			methodContent = "{\r\n" + methodContent + "\r\n}";
-			break;
-		}
 
 		if (methodModifier != "") {
-
-		} else {
-			methodModifier = "";
+			this.methodModifier = methodModifier + " ";
 		}
 
-		if (methodMReturnType != " ") {
-		} else {
-			methodMReturnType = "void";
+		if (methodReturnType != "") {
+			setMethodReturnType(methodReturnType + " ");
 		}
 
-		if (methodVariable.toString() != "") {
-			methodVariable.toString();
-		} else {
-			methodVariable = null;
+		if (methodName == Class.getClassName()) {
+			setMethodType("constructor");
+			setMethodModifier("public ");
+			setMethodReturnType("");
 		}
 
-		method = methodModifier + methodMReturnType + methodName + methodVariable + methodContent;
+		method = "\r\n" + this.methodModifier + this.methodReturnType + this.methodName + "(" + methodParameters + ")"
+				+ " {\r\n" + methodContent + "\r\n}";
 	}
 
-	void addMethodParameters(String type, String name) {
+	void addMethodParameter(String parameterType, String parameterName) {
+		MethodParameters parameters = new MethodParameters(parameterType, parameterName);
 
+		if (methodParameters.toString().equals("")) {
+			methodParameters.append(parameters.getVariable());
+		} else {
+			methodParameters.append(", ");
+			methodParameters.append(parameters.getVariable());
+		}
+	}
+
+	void updateMethod() {
+		method = "\r\n" + this.methodModifier + this.methodReturnType + this.methodName + "("
+				+ methodParameters.toString() + ")" + " {\r\n" + methodContent + "\r\n}";
+		System.out.println(method);
+		Class.updateAllMethod();
 	}
 
 	public String getMethod() {
@@ -96,12 +92,12 @@ public class Method {
 		this.methodModifier = methodModifier;
 	}
 
-	public String getMethodMReturnType() {
-		return methodMReturnType;
+	public String getMethodReturnType() {
+		return methodReturnType;
 	}
 
-	public void setMethodMReturnType(String methodMReturnType) {
-		this.methodMReturnType = methodMReturnType;
+	public void setMethodReturnType(String methodReturnType) {
+		this.methodReturnType = methodReturnType;
 	}
 
 	public String getMethodName() {
@@ -130,6 +126,14 @@ public class Method {
 
 	public void setMethodType(String methodType) {
 		this.methodType = methodType;
+	}
+
+	public String getMethodClassName() {
+		return methodClassName;
+	}
+
+	public void setMethodClassName(String className) {
+		this.methodClassName = className;
 	}
 
 }
