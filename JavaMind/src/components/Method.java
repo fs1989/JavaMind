@@ -3,7 +3,7 @@ package components;
 public class Method {
 
 	private String method;
-	
+
 	private String methodType;
 	private String methodModifier;
 	private String methodMReturnType;
@@ -11,40 +11,38 @@ public class Method {
 	private MethodParameters methodParameters;
 	private String methodContent;
 
-	static class MethodParameters {
-		
-		String methodParameters;
-		static String type;
-		static String name;
-		
-		public MethodParameters(String type, String name){
-			if (methodParameters != null) {
-				methodParameters.append(", " + type + name);
+	static class MethodParameters extends Variable {
+
+		public MethodParameters(String variableType, String variableName) {
+			super(variableType, variableName);
+
+			if (variable != "") {
+				variable = variable.substring(0, variable.length() - 1);
+				variable = "(" + variable + ")";
 			} else {
-				methodParameters.append("(" + type + " " + name + ")");
+				variable = " (" + variable + ")";
 			}
-			
-			
 		}
-		@Override
-		public String toString() {
-			// TODO Auto-generated method stub
-			return super.toString();
-		}
+
 	}
-	
-	public Method(String methodType, String methodModifier, String methodMReturnType, String methodName, MethodParameters methodParameters, String methodContent) {
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
+
+	public Method(String methodType, String methodModifier, String methodMReturnType, String methodName,
+			String methodVariable, String methodContent) {
 		super();
 		this.methodType = methodType;
 		this.methodModifier = methodModifier;
 		this.methodMReturnType = methodMReturnType;
 		this.methodName = methodName;
-		this.methodParameters = new MethodParameters(MethodParameters.type, MethodParameters.name);
 		this.methodContent = methodContent;
-		
+
 		switch (methodType) {
 		case "constructor":
-			methodModifier = "public ";
+			methodModifier = "\r\npublic ";
 			methodMReturnType = "";
 			methodContent = "{\r\nsuper();\r\n" + methodContent + "\r\n}";
 			break;
@@ -59,25 +57,26 @@ public class Method {
 		}
 
 		if (methodModifier != "") {
-			
+
 		} else {
 			methodModifier = "";
 		}
-		
+
 		if (methodMReturnType != " ") {
 		} else {
 			methodMReturnType = "void";
 		}
 
-		if (methodParameters.toString() != "") {
+		if (methodVariable.toString() != "") {
+			methodVariable.toString();
 		} else {
-			methodParameters = null;
+			methodVariable = null;
 		}
 
-		method = methodModifier + methodMReturnType + methodName + methodParameters + methodContent;
+		method = methodModifier + methodMReturnType + methodName + methodVariable + methodContent;
 	}
-	
-	void addMethodParameters(String type, String name){
+
+	void addMethodParameters(String type, String name) {
 
 	}
 
@@ -117,10 +116,6 @@ public class Method {
 		return methodParameters.toString();
 	}
 
-	public void setMethodParameters(String methodParameters) {
-		this.methodParameters = new StringBuffer(methodParameters);
-	}
-
 	public String getMethodContent() {
 		return methodContent;
 	}
@@ -136,7 +131,5 @@ public class Method {
 	public void setMethodType(String methodType) {
 		this.methodType = methodType;
 	}
-
-	
 
 }

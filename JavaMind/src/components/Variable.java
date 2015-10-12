@@ -8,14 +8,16 @@ public class Variable {
 	String variableName;
 	String variableValue;
 
-	public Variable() {
-		// TODO Auto-generated constructor stub
-	}
-
 	public Variable(String variableType, String variableName) {
 		this.variableType = variableType;
 		this.variableName = variableName;
-		variable = variableType + " " + variableName + ";";
+		
+		if (variableType != "" & variableName != "") {
+			variable = variableType + " " + variableName + ";";
+		} else {
+			variable = "";
+		}
+		
 	}
 
 	public Variable(String variableType, String variableName, String variableValue) {

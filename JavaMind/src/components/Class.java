@@ -1,5 +1,7 @@
 package components;
 
+import components.Method.MethodParameters;
+
 /**
  * @author Dan.D.Zhang
  *
@@ -42,8 +44,8 @@ public class Class {
 		allVariables.append(variable.getVariable() + "\r\n");
 	}
 	
-	public void addClassMethod(String methodType, String methodModifier, String methodMReturnType, String methodName, String methodParameters, String methodContent) {
-		Method method = new Method(methodType, methodModifier, methodMReturnType, methodName, methodParameters, methodContent);
+	public void addClassMethod(String methodType, String methodModifier, String methodReturnType, String methodName, String methodVariable, String methodContent) {
+		Method method = new Method(methodType, methodModifier, methodReturnType, methodName, methodVariable, methodContent);
 		allMethod.append(method.getMethod() + "\r\n");
 		
 	}

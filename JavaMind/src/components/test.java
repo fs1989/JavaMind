@@ -1,5 +1,7 @@
 package components;
 
+import components.Method.MethodParameters;
+
 public class test  {
 		
 	public test() {
@@ -16,10 +18,26 @@ public class test  {
 		application.addClassVariable("String", "appName");
 		application.addClassVariable("String", "appGroup");
 		application.addClassVariable("String", "appType");
+
+		// 为方法添加一个参数
 		
-		application.addClassMethod("constructor", "public", "", "Application", "String appName", "System.out.println(\"构造方法内容\")");
 		
+		String parameterType = "String";
+		String parameterName = "appName";
+		MethodParameters parameter = new MethodParameters(parameterType, parameterName);
+		StringBuffer parameters = new StringBuffer();
+		parameters.append(parameter.getVariable());
+		String methodParameter = parameters.toString();
 		
+		// 添加一个方法
+		String methodType = "constructor";
+		String methodModifier = "public"; 
+		String methodMReturnType = ""; 
+		String methodName = "Application"; 
+		String methodVariable = methodParameter; 
+		String methodContent = "";
+		
+		application.addClassMethod(methodType, methodModifier, methodMReturnType, methodName, methodVariable, methodContent);
 		
 		System.out.println(application.getCode());
 		
