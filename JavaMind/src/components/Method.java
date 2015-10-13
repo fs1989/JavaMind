@@ -2,14 +2,13 @@ package components;
 
 public class Method {
 
-	private String method;
-
+	private String methodString;
 	private String methodClassName;
 
-	private String methodType;
-	private String methodModifier;
-	private String methodReturnType;
-	private String methodName;
+	private String methodType = "";
+	private String methodModifier = "";
+	private String methodReturnType = "";
+	private String methodName = "";
 	private StringBuffer methodParameters = new StringBuffer("");
 	private String methodContent = "";
 
@@ -17,71 +16,54 @@ public class Method {
 
 		public MethodParameters(String variableType, String variableName) {
 			super(variableType, variableName);
-
-			if (variable != "") {
-				variable = variable.substring(0, variable.length() - 1);
+			if (variableString != "") {
+				variableString = variableString.substring(0, variableString.length() - 1);
 				// variable = "(" + variable + ")";
 			} else {
-				variable = " (" + variable + ")";
+				variableString = " (" + variableString + ")";
 			}
-		}
 
+		}
 	}
 
-	@Override
-	public String toString() {
-		return super.toString();
-	}
-
-	public Method(String methodClassName, String methodModifier, String methodReturnType, String methodName) {
-		super();
-		this.methodClassName = methodClassName;
-		this.methodModifier = methodModifier;
-		this.methodReturnType = methodReturnType;
-		this.methodName = methodName;
-
-		if (methodModifier != "") {
-			this.methodModifier = methodModifier + " ";
-		}
-
-		if (methodReturnType != "") {
-			setMethodReturnType(methodReturnType + " ");
-		}
-
-		if (methodName == Class.getClassName()) {
-			setMethodType("constructor");
-			setMethodModifier("public ");
-			setMethodReturnType("");
-		}
-
-		method = "\r\n" + this.methodModifier + this.methodReturnType + this.methodName + "(" + methodParameters + ")"
-				+ " {\r\n" + methodContent + "\r\n}";
+	public Method() {
+		updateMethod();
 	}
 
 	void addMethodParameter(String parameterType, String parameterName) {
 		MethodParameters parameters = new MethodParameters(parameterType, parameterName);
 
 		if (methodParameters.toString().equals("")) {
-			methodParameters.append(parameters.getVariable());
+			methodParameters.append(parameters.getVariableString());
 		} else {
 			methodParameters.append(", ");
-			methodParameters.append(parameters.getVariable());
+			methodParameters.append(parameters.getVariableString());
 		}
+		updateMethod();
 	}
 
 	void updateMethod() {
-		method = "\r\n" + this.methodModifier + this.methodReturnType + this.methodName + "("
-				+ methodParameters.toString() + ")" + " {\r\n" + methodContent + "\r\n}";
-		System.out.println(method);
-		Class.updateAllMethod();
+
+		if (methodModifier != "" && !methodModifier.contains(" ")) {
+			setMethodModifier(methodModifier + " ");
+		}
+
+		if (methodReturnType != "" && !methodReturnType.contains(" ")) {
+			setMethodReturnType(methodReturnType + " ");
+		}
+
+		methodString = "\r\n" + methodModifier + methodReturnType + methodName + "(" + methodParameters.toString() + ")"
+				+ " {\r\n" + methodContent + "\r\n}";
+
 	}
 
-	public String getMethod() {
-		return method;
+	// Setters and Getters
+	public String getMethodString() {
+		return methodString;
 	}
 
-	public void setMethod(String method) {
-		this.method = method;
+	public void setMethod(String methodString) {
+		this.methodString = methodString;
 	}
 
 	public String getMethodModifier() {

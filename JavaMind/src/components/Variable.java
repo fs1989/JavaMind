@@ -2,7 +2,7 @@ package components;
 
 public class Variable {
 
-	String variable;
+	String variableString;
 
 	String variableType;
 	String variableName;
@@ -13,9 +13,9 @@ public class Variable {
 		this.variableName = variableName;
 		
 		if (variableType != "" & variableName != "") {
-			variable = variableType + " " + variableName + ";";
+			variableString = variableType + " " + variableName + ";";
 		} else {
-			variable = "";
+			variableString = "";
 		}
 		
 	}
@@ -24,15 +24,19 @@ public class Variable {
 		this.variableType = variableType;
 		this.variableName = variableName;
 		this.variableValue = variableValue;
-		variable = variableType + " " + variableName + " = " + variableValue + ";";
+		variableString = variableType + " " + variableName + " = " + variableValue + ";";
 	}
 
-	public String getVariable() {
-		return variable;
+	public Variable() {
+		// TODO Auto-generated constructor stub
 	}
 
-	public void setVariable(String variable) {
-		this.variable = variable;
+	public String getVariableString() {
+		return variableString;
+	}
+
+	public void setVariable(String variableString) {
+		this.variableString = variableString;
 	}
 
 	public String getVariableType() {

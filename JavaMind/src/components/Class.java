@@ -1,8 +1,9 @@
 package components;
 
-import java.awt.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Dan.D.Zhang
@@ -10,56 +11,26 @@ import java.util.Iterator;
  */
 public class Class {
 
-	private static String classPackage = "";
-	private static String classImport = "";
-	private static String className = "";
-	private static String classExtends = "";
-	private static String classImplements = "";
+	private String classPackage = "";
+	private String className = "";
+	private String classExtends = "";
+	private String classImplements = "";
+	private String allClassString = "";
 
-	private static StringBuffer allVariables = new StringBuffer();
-	private static StringBuffer allMethods = new StringBuffer();
+	private Map<String, String> variables = new HashMap<String, String>();
+	private Map<String, String> methods = new HashMap<String, String>();
 
-	ArrayList Methods = new ArrayList();
+	
+	private StringBuffer allVariables = new StringBuffer();
+	private StringBuffer allMethods = new StringBuffer();
 
-	public static String allClassString = "";
-
-	public Class() {
-		this.setClassPackage(getPakageName());
-
-	}
-
-	private String getPakageName() {
-		// TODO Auto-generated method stub
-		return "";
-	}
-
-	public String getCode() {
+	public Class(String className) {
+		this.setClassPackage(getClassPackage());
 		updateClass();
-		return allClassString;
-	}
-
-	public void addClassVariable(String variableType, String variableName) {
-		Variable variable = new Variable(variableType, variableName);
-		allVariables.append(variable.getVariable() + "\r\n");
-	}
-
-	public void addClassVariable(String variableType, String variableName, String variableValue) {
-		Variable variable = new Variable(variableType, variableName, variableValue);
-		allVariables.append(variable.getVariable() + "\r\n");
-	}
-
-	public String getAllMethods() {
-		Iterator t = Methods.iterator();
-		while (t.hasNext()) {
-			allMethods.append(t.next() + "\r\n");
-		}
-		return Methods.toString();
 	}
 
 	public void updateClass() {
-
 		String cPackagePart = "package " + classPackage + ";" + "\r\n" + "\r\n";
-		String cImportsPart = "import " + classImport + ";\r\n" + "\r\n";
 
 		String cName = "public class " + className;
 		String cExtens = " extens " + classExtends;
@@ -68,87 +39,96 @@ public class Class {
 		String cVariables = allVariables.toString();
 		String cMethods = allMethods.toString();
 
-		if (classImport != "") {
-		} else {
-			cImportsPart = "";
-		}
-
-		if (classExtends != "") {
-		} else {
+		if (classExtends == "") {
 			cExtens = "";
 		}
-
-		if (classImplements != "") {
-		} else {
+		if (classImplements == "") {
 			cImplements = "";
 		}
-
-		if (allVariables != null) {
-		} else {
+		if (allVariables.toString() == "") {
 			cVariables = "";
+		}
+		if (allMethods.toString() == "") {
+			cMethods = "";
 		}
 
 		String cContent = " {\r\n" + "\r\n" + cVariables + cMethods + "\r\n}";
 		String cHeaderPart = cName + cExtens + cImplements + cContent;
-		allClassString = cPackagePart + cImportsPart + cHeaderPart;
+		allClassString = cPackagePart + cHeaderPart;
 	}
 
-	public void createMethod(String className, String methodModifier, String methodReturnType, String methodName) {
-		Method method = new Method(int i, getClassName(), methodModifier, methodReturnType, methodName);
-		Methods.add(method.getMethod());
+	
+	void addClassVariable(String variableName, String variable) {
+		variables.put(variableName, variable);
 	}
-
-	// setter and getter
-	public void setClassVariables(StringBuffer allVariables) {
-		Class.allVariables = allVariables;
+	
+	void addClassMethod(String methodName, String method) {
+		methods.put(methodName, method);
 	}
-
-	public void setClassPackage(String classPackage) {
-		Class.classPackage = classPackage;
+	
+	public String getCode() {
+		updateClass();
+		return allClassString;
 	}
+	
 
-	public void setClassImport(String classImport) {
-		Class.classImport = classImport;
-	}
-
-	public void setClassName(String className) {
-		Class.className = className;
-	}
-
-	public void setClassExtends(String classExtends) {
-		Class.classExtends = classExtends;
-	}
-
-	public void setClassImplements(String classImplements) {
-		Class.classImplements = classImplements;
-	}
-
+	// Setters and Getters
 	public String getClassPackage() {
 		return classPackage;
 	}
 
-	public String getClassImport() {
-		return classImport;
+	public void setClassPackage(String classPackage) {
+		this.classPackage = classPackage;
 	}
 
-	public static String getClassName() {
+	public String getClassName() {
 		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	public String getClassExtends() {
 		return classExtends;
 	}
 
+	public void setClassExtends(String classExtends) {
+		this.classExtends = classExtends;
+	}
+
 	public String getClassImplements() {
 		return classImplements;
 	}
 
-	public String getAllClass() {
+	public void setClassImplements(String classImplements) {
+		this.classImplements = classImplements;
+	}
+
+	public String getAllClassString() {
 		return allClassString;
 	}
 
-	public StringBuffer getClassVariables() {
+	public void setAllClassString(String allClassString) {
+		this.allClassString = allClassString;
+	}
+
+	public StringBuffer getAllVariables() {
 		return allVariables;
 	}
+
+	public void setAllVariables(StringBuffer allVariables) {
+		this.allVariables = allVariables;
+	}
+
+	public StringBuffer getAllMethods() {
+		return allMethods;
+	}
+
+	public void setAllMethods(StringBuffer allMethods) {
+		this.allMethods = allMethods;
+	}
+	
+	
 
 }
