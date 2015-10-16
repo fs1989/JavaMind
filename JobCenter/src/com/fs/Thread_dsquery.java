@@ -14,7 +14,7 @@ public class Thread_dsquery extends Thread {
 		
 		
 		String cmd_scepco_users = "csvde -f C:/APPS/UserList/SCEPCO_User_List.CSV -r \"(ou=SCEPCO)\" -l cn,sAMAccountName,mail,displayName,l,location,whenCreated,employeeType,lastLogon";
-		String cmd_app_dsquery = "cmd /c dsquery group -samid \"" + appGroup + "\" | dsget group -members > C:\\apps\\UserList\\" + appName + ".txt";
+		String cmd_app_dsquery = "cmd /c dsquery group -samid \"" + appGroup + "\" | dsget group -members > C:\\apps\\UserList\\" + appName + ".csv";
 //		System.out.println(cmdStr);
 		try {
 			p1 = Runtime.getRuntime().exec(cmd_scepco_users);

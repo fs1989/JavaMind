@@ -11,8 +11,8 @@ public class Thread_processtxt extends Thread {
 
 	public Thread_processtxt(String appName, String appGroup) {
 		
-//		getUserID(appName, appGroup);
-		getSCEPCOUsers(appName);
+		getUserID(appName);
+//		getSCEPCOUsers(appName);
 		
 	}
 
@@ -74,12 +74,18 @@ public class Thread_processtxt extends Thread {
 	}
 
 	private void getUserID(String appName) {
+		
+		String fileToBeReaded = "C:/APPS/UserList//" + appName + ".csv";
+		String fileToBeCreated = "C:/APPS/UserList//00result-" + appName + ".csv";
+		readFile(fileToBeReaded, fileToBeCreated);
+		System.out.println(appName + " done - getUserID" + "\r\n");
+
+	}
+	
+	private String readFile(String fileToBeReaded, String fileToBeCreated) {
 		String tempString = "";
 		BufferedReader br = null;
 		StringBuffer sb = new StringBuffer();
-
-		String fileToBeReaded = "C:/APPS/UserList//" + appName + ".txt";
-		String fileToBeCreated = "C:/APPS/UserList//00result-" + appName + ".txt";
 
 		try {
 			br = new BufferedReader(new FileReader(fileToBeReaded));
@@ -117,12 +123,12 @@ public class Thread_processtxt extends Thread {
 		finally {
 			if (br != null) {
 				try {
-					System.out.println(appName + " done - getUserID" + "\r\n");
 					br.close();
 				} catch (IOException e1) {
 				}
 			}
 		}
+		
+		return sb.toString();
 	}
-	
 }

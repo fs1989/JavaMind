@@ -14,10 +14,7 @@ public class test {
 		Application edm = new Application("edm", "FGO-SUKEP-ABE-ZZ-EDM R5000 SCEPCO-GS");
 		Application ecrin = new Application("ecrin", "FGG-EP-GLOBAL-ZZ-KAEN-Ecrin-GS");
 
-		Thread_processtxt t1 = new Thread_processtxt("ofm", "FGG-EP-GLOBAL-ZZ-THSA-Techlog-AllVersions-GS");
-		t1.start();
-		
-//		petrel.update_user_list();
+		petrel.update_user_list();
 //		techlog.update_user_list();
 //		arcgis.update_user_list();
 //		fme.update_user_list();
