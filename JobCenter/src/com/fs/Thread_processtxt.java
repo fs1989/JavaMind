@@ -12,7 +12,7 @@ public class Thread_processtxt extends Thread {
 	public Thread_processtxt(String appName, String appGroup) {
 		
 		getUserID(appName);
-//		getSCEPCOUsers(appName);
+		getSCEPCOUsers(appName);
 		
 	}
 
@@ -33,13 +33,16 @@ public class Thread_processtxt extends Thread {
 		try {
 			brApp = new BufferedReader(new FileReader(fileAppUserList));
 			brUserList = new BufferedReader(new FileReader(fileAllUserList));
-			int line = 1;
+			int line = 0;
 			
 			while ((line_UserList = brUserList.readLine()) != null) {
-				String[] a = line_UserList.split(",");
-				String[] b = a[0].split("=");
-				sbAllUserList.append(b[1] + "\r\n");
+				if (line > 1) {
+					String[] a = line_UserList.split(",");
+					String[] b = a[0].split("=");
+					sbAllUserList.append(b[1] + "\r\n");
+				}
 				line++;
+				
 			}
 			while ((line_App = brApp.readLine()) != null) {
 				if (sbAllUserList.toString().contains(line_App)) {
