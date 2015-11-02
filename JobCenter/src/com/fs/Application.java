@@ -23,6 +23,11 @@ public class Application {
 
 	}
 
+	public Application getApp(String appName) {
+		this.getAppGroup();
+		return this;
+	}
+	
 	public String getAppName() {
 		return appName;
 	}

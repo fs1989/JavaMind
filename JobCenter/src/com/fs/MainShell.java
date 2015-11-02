@@ -10,22 +10,27 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class Shell extends org.eclipse.swt.widgets.Shell {
+public class MainShell extends org.eclipse.swt.widgets.Shell {
 
-	/**
-	 * Launch the application.
-	 * 
-	 * @param args
-	 */
+	static Shell shell;
+	Button btnNewApp = new Button(this, SWT.NONE);
+	Label labelUserList = new Label(this, SWT.NONE);
+	List list = new List(this, SWT.NONE);
+	Text textResult = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
+	Button btnUpdate = new Button(this, SWT.NONE);
+	Label lableStatus = new Label(this, SWT.NONE);
+
 	public static void main(String args[]) {
 		try {
 			Display display = Display.getDefault();
-			Shell shell = new Shell(display);
+			shell = new MainShell(display);
 			shell.open();
 			shell.layout();
 
@@ -39,26 +44,11 @@ public class Shell extends org.eclipse.swt.widgets.Shell {
 		}
 	}
 
-	/**
-	 * Create the shell.
-	 * 
-	 * @param display
-	 */
-	
-	Button btnNewApp = new Button(this, SWT.NONE);
-	Label labelUserList = new Label(this, SWT.NONE);
-	List list = new List(this, SWT.NONE);
-	Text textResult = new Text(this, SWT.BORDER | SWT.READ_ONLY | SWT.WRAP | SWT.V_SCROLL | SWT.MULTI);
-	Button btnUpdate = new Button(this, SWT.NONE);
-	Label lableStatus = new Label(this, SWT.NONE);
-	
-	public Shell(Display display) {
+	public MainShell(Display display) {
 		super(display, SWT.SHELL_TRIM | SWT.PRIMARY_MODAL | SWT.BORDER);
 		// setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		GridLayout layout = new GridLayout(2, false);
 		setLayout(layout);
-
-		
 
 		GridData gd_text = new GridData(GridData.FILL_BOTH);
 		gd_text.widthHint = 10;
@@ -76,8 +66,6 @@ public class Shell extends org.eclipse.swt.widgets.Shell {
 		list.add("ArcGIS");
 		list.add("EDM");
 
-		
-
 		StringBuffer sb = new StringBuffer();
 		sb.append("123" + "\n");
 		sb.append("123" + "\n");
@@ -90,6 +78,8 @@ public class Shell extends org.eclipse.swt.widgets.Shell {
 		btnNewApp.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				Find find = new Find(shell);
+
 			}
 		});
 
